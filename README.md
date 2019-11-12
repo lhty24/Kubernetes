@@ -44,3 +44,30 @@ refer to doc: https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/
 ### Setup Device Plugin
 update api based on https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/
 ignore validation error
+
+### Figuring out user guide
+- 只运行nvidia-device-plugin-daemonset而不运行gpushare-device-plugin,执行 create -f 1.yaml （创建binpack pod）都没任何结果输出
+
+- 我之前也遇到过一样的问题，我当时是集群的调度器并没有启用gpushare-scheduler-extender，这样pod的annotation中就不会产生该pod应该分配的device ID，在device-plugin执行实际分配时，则会报unknown device id的错误。你可以describe一下你的pod,看annotation中是否有ALIYUN_COM_GPU_MEM_IDX的值.
+
+------COMMANDS--------
+- make sure GPU sharing scheduler extender and dev plugin are up
+`kubectl get po -n kube-system -l app=gpushare`
+
+- check GPU sharing of the k8s cluster
+`kubectl inspect gpushare`
+
+- create deployment binpack-1 which requests 8138MB / 0.5 GPU
+`vi 1/1.yaml`
+(insert code)
+
+- create deployment binpack-1
+`kubectl create -f 1/1.yaml`
+
+- ?
+`kubectl get po`
+
+`kubectl inspect gpushare` 
+
+`-d` details: show which pod are placed on which GPU device
+
