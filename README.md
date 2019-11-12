@@ -17,6 +17,25 @@ picture [https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/]
 
 - Secret and configuration management
 
+### Kubernetes Master
+The Kubernetes master is responsible for maintaining the desired state for your cluster. When you interact with Kubernetes, such as by using the kubectl command-line interface, you’re communicating with your cluster’s Kubernetes master.
+
+The “master” refers to a collection of processes managing the cluster state. Typically all these processes run on a single node in the cluster, and this node is also referred to as the master. The master can also be replicated for availability and redundancy.
+
+Kubernetes Nodes
+The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The Kubernetes master controls each node; you’ll rarely interact with nodes directly.
+
+`kubectl get pods --all-namespaces`
+`kubectl get nodes`
+
+### Join nodes - `kubeadm join`
+This command initializes a Kubernetes worker node and joins it to the cluster.
+
+When joining a kubeadm initialized cluster, we need to establish bidirectional trust. 2 main schemes for discovery
+1. kubeadm join –discovery-token abcdef.1234567890abcdef 1.2.3.4:6443
+2. kubeadm join –discovery-file path/to/file.conf, or kubeadm join –discovery-file https://url/file.conf
+
+
 ### Deployments
 
 ### Namespaces
@@ -74,4 +93,7 @@ ignore validation error
 `kubectl inspect gpushare` 
 
 `-d` details: show which pod are placed on which GPU device
+
+-------TODO-----------
+- deploy the gpushare-scheduler and device plugin on master and node, respectively
 
