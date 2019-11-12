@@ -19,6 +19,10 @@ picture [https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/]
 
 ### Deployments
 
+### Namespaces
+Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called namespaces.
+Namespaces are intended for use in environments with many users spread across multiple teams, or projects. 
+
 ### Scheduler
 In Kubernetes, scheduling refers to making sure that Pods are matched to Nodes so that Kubelet can run them.
 
